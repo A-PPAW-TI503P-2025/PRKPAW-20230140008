@@ -21,3 +21,7 @@ ENDPOINT CHECK-OUT BERHASIL
 LAPORAN ADMIN
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/8439452d-895f-4a4d-8623-d261539bb2c7" />
+
+tabel presensi di database
+
+<img width="1920" height="1080" alt="Screenshot (306)" src="https://github.com/user-attachments/assets/0617f1f9-cf74-4eb8-a41d-b9b59cad3a07" />
