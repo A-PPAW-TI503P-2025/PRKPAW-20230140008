@@ -3,12 +3,13 @@ import axios from 'axios';
 
 const ReportPage = () => {
   const [reports, setReports] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(null); // State untuk Popup Foto
 
   useEffect(() => {
     const fetchReports = async () => {
       try {
         const token = localStorage.getItem('token');
-        // Pastikan PORT 3000
+        // Pastikan PORT 3000 sesuai backend
         const response = await axios.get('http://localhost:3000/api/presensi/report', {
             headers: { Authorization: `Bearer ${token}` }
         });
@@ -19,6 +20,13 @@ const ReportPage = () => {
     };
     fetchReports();
   }, []);
+
+  // Helper: Membersihkan path gambar (mengubah backslash Windows '\' jadi slash '/')
+  const getImageUrl = (path) => {
+    if (!path) return null;
+    const cleanPath = path.replace(/\\/g, '/');
+    return `http://localhost:3000/${cleanPath}`;
+  };
 
   return (
     <div className="container mx-auto p-6">
@@ -32,6 +40,8 @@ const ReportPage = () => {
               <th className="py-3 px-4 text-left font-semibold">Nama</th>
               <th className="py-3 px-4 text-left font-semibold">Check-In</th>
               <th className="py-3 px-4 text-left font-semibold">Check-Out</th>
+              {/* Kolom Baru: Bukti Foto */}
+              <th className="py-3 px-4 text-center font-semibold">Bukti Foto</th>
               <th className="py-3 px-4 text-center font-semibold">Live Map</th>
             </tr>
           </thead>
@@ -39,19 +49,38 @@ const ReportPage = () => {
             {reports.map((report, index) => (
               <tr key={report.id} className="hover:bg-blue-50 transition duration-150">
                 <td className="py-3 px-4 text-gray-700">{index + 1}</td>
+                
                 <td className="py-3 px-4 font-medium text-gray-900">
                   {report.User ? report.User.nama : 'User dihapus'}
                 </td>
+                
                 <td className="py-3 px-4 text-gray-600">
                   {new Date(report.checkIn).toLocaleString('id-ID')}
                 </td>
+                
                 <td className="py-3 px-4 text-gray-600">
                   {report.checkOut ? new Date(report.checkOut).toLocaleString('id-ID') : '-'}
                 </td>
+
+                {/* --- KOLOM FOTO --- */}
                 <td className="py-3 px-4 text-center">
-                  {/* LOGIKA TOMBOL LIVE MAP */}
+                  {report.buktiFoto ? (
+                    <img 
+                      src={getImageUrl(report.buktiFoto)} 
+                      alt="Bukti" 
+                      className="w-12 h-12 object-cover rounded border border-gray-300 cursor-pointer mx-auto hover:scale-110 transition"
+                      onClick={() => setSelectedImage(getImageUrl(report.buktiFoto))}
+                    />
+                  ) : (
+                    <span className="text-xs text-gray-400 italic">No Photo</span>
+                  )}
+                </td>
+
+                {/* --- KOLOM PETA --- */}
+                <td className="py-3 px-4 text-center">
                   {report.latitude && report.longitude ? (
                     <a 
+                      // Link Google Maps Standar
                       href={`https://www.google.com/maps?q=${report.latitude},${report.longitude}`} 
                       target="_blank" 
                       rel="noopener noreferrer"
@@ -70,6 +99,29 @@ const ReportPage = () => {
           </tbody>
         </table>
       </div>
+
+      {/* --- MODAL POPUP UNTUK FOTO FULL SCREEN --- */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4"
+          onClick={() => setSelectedImage(null)} // Klik background untuk tutup
+        >
+          <div className="relative max-w-3xl w-full bg-white p-2 rounded-lg">
+            <button 
+              className="absolute -top-10 right-0 text-white text-3xl font-bold hover:text-red-500"
+              onClick={() => setSelectedImage(null)}
+            >
+              &times; Tutup
+            </button>
+            <img 
+                src={selectedImage} 
+                alt="Full Size Bukti" 
+                className="w-full h-auto rounded-lg shadow-2xl" 
+            />
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };

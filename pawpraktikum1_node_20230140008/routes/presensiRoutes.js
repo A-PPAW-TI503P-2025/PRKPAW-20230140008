@@ -1,14 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const presensiController = require('../controllers/presensiController');
-const reportController = require('../controllers/reportController'); // Pastikan ini ada
-const authMiddleware = require('../middleware/authMiddleware');
+const reportController = require('../controllers/reportController'); 
+const authMiddleware = require('../middleware/authMiddleware'); // Kita pakai nama ini
 
-// Route Check-In & Check-Out
-router.post('/check-in', authMiddleware, presensiController.checkIn);
+// --- ROUTE CHECK-IN ---
+router.post('/check-in', 
+    authMiddleware, // Sesuai import di atas
+    presensiController.upload.single('image'), // Middleware Multer
+    presensiController.checkIn // Sesuai nama fungsi di controller (huruf kecil)
+);
+
+// --- ROUTE CHECK-OUT ---
 router.post('/check-out', authMiddleware, presensiController.checkOut);
 
-// Route Report
+// --- ROUTE REPORT ---
 router.get('/report', authMiddleware, reportController.getDailyReport);
 
 module.exports = router;
