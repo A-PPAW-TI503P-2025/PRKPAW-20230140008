@@ -10,6 +10,6 @@ Tampilan thumbnail foto yang diambil dari URL
 
 http://localhost:3000/uploads/1-1764989378698.jpg
 
-Tampilan Database nya
+Tampilan Database nyaa
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/488496c9-b5d4-4eec-9ba0-8bdd57fec1a0" />
