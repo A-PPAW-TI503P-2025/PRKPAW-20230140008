@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-// Import Komponen yang sudah kamu buat
 import MainNavbar from './components/MainNavbar';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 import DashboardPage from './components/DashboardPage';
-import PresensiPage from './components/AttendancePage'; // Perhatikan nama filenya AttendancePage.js
+import PresensiPage from './components/AttendancePage'; 
 import ReportPage from './components/ReportPage';
+import SensorPage from './components/SensorPage'; 
 
 function App() {
   return (
@@ -26,6 +26,9 @@ function App() {
           <Route path="/dashboard" element={<DashboardPage />} />
           
           {/* Route Fitur */}
+          {/* Route monitoring sesuai Modul 14 */}
+          <Route path="/monitoring" element={<SensorPage />} />
+          
           <Route path="/presensi" element={<PresensiPage />} />
           <Route path="/reports" element={<ReportPage />} />
         </Routes>

@@ -62,7 +62,7 @@ const PresensiPage = () => {
       formData.append('image', blob, 'selfie.jpg'); // Key 'image' sesuai dengan upload.single('image') di backend
 
       // 3. Kirim ke Server
-      await axios.post('http://localhost:3000/api/presensi/check-in', 
+      await axios.post('http://localhost:3001/api/presensi/check-in', 
         formData, 
         { 
           headers: { 
@@ -84,7 +84,7 @@ const PresensiPage = () => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:3000/api/presensi/check-out', {}, 
+      await axios.post('http://localhost:3001/api/presensi/check-out', {}, 
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setStatus("✅ Check-out berhasil!");

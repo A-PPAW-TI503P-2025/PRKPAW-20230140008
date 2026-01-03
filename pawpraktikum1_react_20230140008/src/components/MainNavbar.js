@@ -34,13 +34,19 @@ const MainNavbar = () => {
           Aplikasi Presensi
         </Link>
 
-        {/* --- MENU TENGAH (Dashboard | Presensi | Laporan) --- */}
+        {/* --- MENU TENGAH (Dashboard | Monitoring | Presensi | Laporan) --- */}
         <div className="hidden md:flex items-center space-x-8">
           
           <Link to="/dashboard" className="text-white hover:text-blue-200 font-medium transition text-lg">
             Dashboard
           </Link>
           
+          {/* --- TAMBAHAN MODUL 14 --- */}
+          <Link to="/monitoring" className="text-white hover:text-blue-200 font-medium transition text-lg">
+            Monitoring Suhu
+          </Link>
+          {/* ------------------------- */}
+
           <Link to="/presensi" className="text-white hover:text-blue-200 font-medium transition text-lg">
             Presensi
           </Link>

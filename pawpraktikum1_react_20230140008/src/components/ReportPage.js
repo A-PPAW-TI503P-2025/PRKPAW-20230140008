@@ -10,7 +10,7 @@ const ReportPage = () => {
       try {
         const token = localStorage.getItem('token');
         // Pastikan PORT 3000 sesuai backend
-        const response = await axios.get('http://localhost:3000/api/presensi/report', {
+        const response = await axios.get('http://localhost:3001/api/presensi/report', {
             headers: { Authorization: `Bearer ${token}` }
         });
         setReports(response.data.data);
@@ -25,7 +25,7 @@ const ReportPage = () => {
   const getImageUrl = (path) => {
     if (!path) return null;
     const cleanPath = path.replace(/\\/g, '/');
-    return `http://localhost:3000/${cleanPath}`;
+    return `http://localhost:3001/${cleanPath}`;
   };
 
   return (

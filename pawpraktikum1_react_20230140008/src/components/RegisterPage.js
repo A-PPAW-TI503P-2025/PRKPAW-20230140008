@@ -22,7 +22,7 @@ function RegisterPage() {
 
     try {
       // PERBAIKAN: Port 3000
-      await axios.post('http://localhost:3000/api/auth/register', {
+      await axios.post('http://localhost:3001/api/auth/register', {
         name: name,
         email: email,
         password: password,
